@@ -8,7 +8,7 @@ vars:
     sh: "date -u +%Y-%m-%dT%H%M%S%Z"
   BUILD_ARGS: >-
     --build-arg VERSION={{ .VERSION }}
-    --build-arg CHECKSUM={{ .CHECKSUM }}
+    --build-arg COMMIT={{ .COMMIT }}
     --build-arg BUILD_DATE={{ .BUILD_DATE }}
   TAG_VERSION: "{{ .NS }}/{{ .IMAGE_NAME }}:{{ .VERSION }}-ls{{ .LS }}"
   TAG_LATEST: "{{ .NS }}/{{ .IMAGE_NAME }}:latest"
@@ -143,7 +143,7 @@ tasks:
     cmds:
       - "printf 'task: Available variables for this project:\n'"
       - 'printf "{{ .COLOR }}* BASE\e[m               %s\n" "{{ .BASE }}"'
-      - 'printf "{{ .COLOR }}* CHECKSUM\e[m           %s\n" "{{ .CHECKSUM }}"'
+      - 'printf "{{ .COLOR }}* COMMIT\e[m             %s\n" "{{ .COMMIT }}"'
       - 'printf "{{ .COLOR }}* CONTAINER\e[m          %s\n" "{{ .CONTAINER }}"'
       - 'printf "{{ .COLOR }}* CONTAINER_INSTANCE\e[m %s\n" "{{ .CONTAINER_INSTANCE }}"'
       - 'printf "{{ .COLOR }}* CONTAINER_NAME\e[m     %s\n" "{{ .CONTAINER_NAME }}"'

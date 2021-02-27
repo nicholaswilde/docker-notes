@@ -1,17 +1,13 @@
 ---
 version: "2.1"
 services:
-  template:
-    image: nicholaswilde/template:latest
-    container_name: template-default
+  notes:
+    image: nicholaswilde/notes:latest
+    container_name: notes-default
     ports:
-      - 3000:3000
+      - 8000:8000
     restart: unless-stopped
     volumes:
-      - app:/app
-      - config:/config
-      - defaults:/defaults
+      - data:/data
 volumes:
-  app:
-  config:
-  defaults:
+  data:
