@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.prep.outputs.version }}
-      checksum: ${{ steps.prep.outputs.checksum }}
+      commit: ${{ steps.prep.outputs.commit }}
       ls: ${{ steps.prep.outputs.ls }}
       goss: ${{ steps.prep.outputs.goss }}
       push: ${{ steps.prep.outputs.push }}
@@ -59,11 +59,11 @@ jobs:
           echo ::set-output name=repo_name::${REPO_NAME}
           DATE=$(date -u +%Y-%m-%dT%H%M%SZ)
           echo ::set-output name=date::${DATE}
-          if test -f "./CHECKSUM"; then
-            CHECKSUM=$(cat ./CHECKSUM)
-            echo ::set-output name=checksum::${CHECKSUM}
+          if test -f "./COMMIT"; then
+            COMMIT=$(cat ./COMMIT)
+            echo ::set-output name=commit::${COMMIT}
           else
-            echo ::set-output name=checksum::""
+            echo ::set-output name=commit::""
           fi
           if test -f "./goss.yaml"; then
             echo ::set-output name=goss::true
@@ -138,7 +138,7 @@ jobs:
         with:
           build-args: |
             VERSION=${{ needs.prep.outputs.version }}
-            CHECKSUM=${{ needs.prep.outputs.checksum }}
+            COMMIT=${{ needs.prep.outputs.commit }}
           context: .
           file: ./Dockerfile
           load: true
@@ -188,7 +188,7 @@ jobs:
           build-args: |
             BUILD_DATE=${{ needs.prep.outputs.date }}
             VERSION=${{ needs.prep.outputs.version }}
-            CHECKSUM=${{ needs.prep.outputs.checksum }}
+            COMMIT=${{ needs.prep.outputs.commit }}
           tags: |
             ${{ github.repository_owner }}/${{needs.prep.outputs.repo_name}}:latest
             ${{ github.repository_owner }}/${{needs.prep.outputs.repo_name}}:${{needs.prep.outputs.tag}}
